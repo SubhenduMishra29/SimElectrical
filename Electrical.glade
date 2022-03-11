@@ -684,6 +684,7 @@
                 <property name="label" translatable="yes">Save</property>
                 <property name="use-underline">True</property>
                 <property name="stock-id">gtk-save</property>
+                <signal name="clicked" handler="on_Gen_Toolbar_save_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -887,6 +888,21 @@
             <property name="can-focus">False</property>
             <property name="hexpand">True</property>
             <child>
+              <object class="GtkViewport">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="pack-type">end</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkScrolledWindow">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
@@ -952,21 +968,6 @@
                       </packing>
                     </child>
                   </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="pack-type">end</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkViewport">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <child>
-                  <placeholder/>
                 </child>
               </object>
               <packing>
