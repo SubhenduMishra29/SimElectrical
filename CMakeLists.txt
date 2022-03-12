@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.9)
-
 # set the project name
 project(Tutorial)
 set(Python_ADDITIONAL_VERSIONS 3.7)
