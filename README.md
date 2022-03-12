@@ -10,36 +10,36 @@ enabling efficient design, analysis, management, operations, and a complete digi
 >- Root-cause identification of operating problems
 >- Microgrid
 >- Nanogrid
->- Power Plant\
->- Substation Automation\
->- Remedial Action Schemes\
->- Load Shedding & Restoration\
->- N-n Situational Intelligence\
->- Volt / Var Optimization\
->- Economic Dispatch\
->- Switching Optimization\
->- Automatic Generation Control\
->- Fault Isolation & Service Restoration\
->- Unified Multi-Systems\
->- Arc Flash & Safety Systems\
->- Protection & Coordination\
->- Dynamics & Transients\
->- Design & Optimization\
->- Auto-Run Study Wizard\
->- AC & DC Network Analysis\
->- Grid Code Compliance\
->- Failure Mode Analysis\
->- Reliability Centered Maintenance\
->- Short & Long-Term Load Forecasting\
->- Distribution Management\
->- Switching Management\
->- Outage Management\
->- Load Management\
->- Operator Training Simulator\
->- Protection & Asset Management\
->- Power Management System\
->- Intelligent Electrical SCADA\
->- State Estimation & Load Allocation\
->- Energy Tracking & Accounting\
->- Sequence of Events Playback\
->- Cloud & Mobile Interfaces\
+>- Power Plant
+>- Substation Automation
+>- Remedial Action Schemes
+>- Load Shedding & Restoration
+>- N-n Situational Intelligence
+>- Volt / Var Optimization
+>- Economic Dispatch
+>- Switching Optimization
+>- Automatic Generation Control
+>- Fault Isolation & Service Restoration
+>- Unified Multi-Systems
+>- Arc Flash & Safety Systems
+>- Protection & Coordination
+>- Dynamics & Transients
+>- Design & Optimization
+>- Auto-Run Study Wizard
+>- AC & DC Network Analysis
+>- Grid Code Compliance
+>- Failure Mode Analysis
+>- Reliability Centered Maintenance
+>- Short & Long-Term Load Forecasting
+>- Distribution Management
+>- Switching Management
+>- Outage Management
+>- Load Management
+>- Operator Training Simulator
+>- Protection & Asset Management
+>- Power Management System
+>- Intelligent Electrical SCADA
+>- State Estimation & Load Allocation
+>- Energy Tracking & Accounting
+>- Sequence of Events Playback
+>- Cloud & Mobile Interfaces
