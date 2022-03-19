@@ -1,13 +1,14 @@
 cmake_minimum_required(VERSION 3.9)
 # set the project name
-project(Tutorial)
+project(SimElectrical)
 set(Python_ADDITIONAL_VERSIONS 3.7)
 find_package(Python COMPONENTS Interpreter Development)
 find_package(PythonLibs REQUIRED)
 # add the executable
 include_directories(${PYTHON_INCLUDE_DIRS} Include)
-add_executable(SimElectrical readfile.cpp)
-target_link_libraries(Tutorial ${PYTHON_LIBRARIES})
+add_executable(SimElectrical ${CMAKE_SOURCE_DIR}/lib/pythonlib/readfile.cpp)
+target_link_libraries(SimElectrical ${PYTHON_LIBRARIES})
+message("My_Source:${CMAKE_SOURCE_DIR}")
 message("Python_FOUND:${Python_FOUND}")
 message("Python_VERSION:${Python_VERSION}")
 message("Python_Development_FOUND:${Python_Development_FOUND}")
