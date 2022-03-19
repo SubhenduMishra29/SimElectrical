@@ -1,7 +1,6 @@
 # SimElectrical
 ## SimElectrical is an electrical digital twin in order for electrical engineers and operators to perform following studies in offline or online mode:
->- A single platform with integrated applications for
->- Power system design for ANSI and IEC networks
+- Power system design for ANSI and IEC networks
 >- Electric supply substation simulation
 >- Monitoring and feeder analysis
 >- Study of a DC network
