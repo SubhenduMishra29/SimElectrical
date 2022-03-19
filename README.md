@@ -1,46 +1,31 @@
 # SimElectrical
 A Program to Analyse,Design and Simulate a Powersystem\
 enabling efficient design, analysis, management, operations, and a complete digital transformation of projects while adapting to evolving system changes.\
-## SimElectrical in a nutshell :-
->- A single platform with integrated applications
->- Power System Drawing and Design
->- Advanced power system analytics
->- Design & operational insights
->- Probe alternative actions - What-if analysis
->- On-going learning & training simulator for operators
->- Root-cause identification of operating problems
->- Microgrid
->- Nanogrid
->- Power Plant
->- Substation Automation
->- Remedial Action Schemes
->- Load Shedding & Restoration
->- N-n Situational Intelligence
->- Volt / Var Optimization
->- Economic Dispatch
->- Switching Optimization
->- Automatic Generation Control
->- Fault Isolation & Service Restoration
->- Unified Multi-Systems
->- Arc Flash & Safety Systems
->- Protection & Coordination
->- Dynamics & Transients
->- Design & Optimization
->- Auto-Run Study Wizard
->- AC & DC Network Analysis
->- Grid Code Compliance
->- Failure Mode Analysis
->- Reliability Centered Maintenance
->- Short & Long-Term Load Forecasting
->- Distribution Management
->- Switching Management
->- Outage Management
->- Load Management
->- Operator Training Simulator
->- Protection & Asset Management
->- Power Management System
->- Intelligent Electrical SCADA
->- State Estimation & Load Allocation
->- Energy Tracking & Accounting
->- Sequence of Events Playback
->- Cloud & Mobile Interfaces
+## SimElectrical is an electrical digital twin in order for electrical engineers and operators to perform following studies in offline or online mode:
+>- A single platform with integrated applications for
+>- Power system design for ANSI and IEC networks
+>- Electric supply substation simulation
+>- Monitoring and feeder analysis
+>- Study of a DC network
+>- Open-phase fault analysis
+>- Diesel power plant analysis
+>- Combined cycle power plant analysis
+>- Wind turbine design and analysis
+>- AC/DC hybrid system simulation
+>- Harmonics in railway power systems
+>- Rural distribution system analysis
+>- Distributed generation protection
+>- Microgrid power system design
+>- Power system analysis of High-Rise Buildings
+>- Substation design and analysis
+>- Harmonic or power quality analysis
+>- Reliability
+>- Optimal power flow
+>- Power system stabilizer tuning
+>- Optimal capacitor placement
+>- Motor starting and acceleration analysis
+>- Voltage stability analysis
+>- Ground loop impedance calculation
+>- Battery modeling and simulation
+>- Arc flash hazard assessment
+>- DC Arc Flash Hazard Assessment
