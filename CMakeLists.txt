@@ -6,7 +6,7 @@ find_package(Python COMPONENTS Interpreter Development)
 find_package(PythonLibs REQUIRED)
 # add the executable
 include_directories(${PYTHON_INCLUDE_DIRS} Include)
-add_executable(Tutorial readfile.cpp)
+add_executable(SimElectrical readfile.cpp)
 target_link_libraries(Tutorial ${PYTHON_LIBRARIES})
 message("Python_FOUND:${Python_FOUND}")
 message("Python_VERSION:${Python_VERSION}")
