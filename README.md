@@ -1,6 +1,4 @@
 # SimElectrical
-A Program to Analyse,Design and Simulate a Powersystem\
-enabling efficient design, analysis, management, operations, and a complete digital transformation of projects while adapting to evolving system changes.\
 ## SimElectrical is an electrical digital twin in order for electrical engineers and operators to perform following studies in offline or online mode:
 >- A single platform with integrated applications for
 >- Power system design for ANSI and IEC networks
