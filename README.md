@@ -1,7 +1,7 @@
 # SimElectrical
 A Program to Analyse,Design and Simulate a Powersystem\
 enabling efficient design, analysis, management, operations, and a complete digital transformation of projects while adapting to evolving system changes.\
-##SimElectrical in a nutshell :-
+## SimElectrical in a nutshell :-
 >- A single platform with integrated applications
 >- Power System Drawing and Design
 >- Advanced power system analytics
