@@ -16,7 +16,7 @@ int main()
 		{
 			CPyObject pValue = PyObject_CallObject(pFunc, NULL);
 
-			printf_s("C: getInteger() = %ld\n", PyLong_AsLong(pValue));
+			printf("C: getInteger() = %ld\n", PyLong_AsLong(pValue));
 		}
 		else
 		{
@@ -26,7 +26,7 @@ int main()
 	}
 	else
 	{
-		printf_s("ERROR: Module not imported\n");
+		printf("ERROR: Module not imported\n");
 	}
 
 	return 0;

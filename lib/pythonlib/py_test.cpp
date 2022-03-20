@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <conio.h>
+//#include <conio.h>
 #include <Python.h>
 
 int main()
@@ -14,6 +14,6 @@ int main()
 	Py_Finalize();
 
 	printf("\nPress any key to exit...\n");
-	if(!_getch()) _getch();
+	//if(!_getch()) _getch();
 	return 0;
 }
