@@ -7,5 +7,5 @@ void main(){
 	create_trafo();
 	create_switch();
 	create_ext_grid();
-
+	finalise_py();
 }
