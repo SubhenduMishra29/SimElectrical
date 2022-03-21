@@ -1,9 +1,9 @@
 #include "graph.h"
-void create_empty_net();
-void create_bus();
-void create_line();
-void create_trafo();
-void create_switch();
-void create_ext_grid();
+int create_empty_net();
+int create_bus();
+int create_line();
+int create_trafo();
+int create_switch();
+int create_ext_grid();
 
 
