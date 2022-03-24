@@ -1,25 +1,16 @@
 // A simple C program for traversal of a linked list
 #include "linklist.h"
 
-// This function prints contents of linked list starting from
-// the given node
-void printList(struct Node* n)
-{
-	while (n != NULL) {
-		printf(" %d ", n->data);
-		n = n->next;
-	}
-}
 /* Given a reference (pointer to pointer) to the head of a list
 and an int, inserts a new node on the front of the list. */
-void push(struct Node** head_ref, int new_data)
+void push(struct node** head_ref, char *new_data)
 {
 	/* 1. allocate node */
-	struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
+	struct node* new_node = (struct node*) malloc(sizeof(struct node));
 
 	/* 2. put in the data */
-	new_node->data = new_data;
-
+	//new_node->data = new_data;
+	strcpy(new_node->value, new_data);
 	/* 3. Make next of new node as head */
 	new_node->next = (*head_ref);
 
@@ -28,7 +19,7 @@ void push(struct Node** head_ref, int new_data)
 }
 /* Given a node prev_node, insert a new node after the given
 prev_node */
-void insertAfter(struct Node* prev_node, int new_data)
+void insertAfter(struct node* prev_node, char *new_data)
 {
 	/*1. check if the given prev_node is NULL */
 	if (prev_node == NULL) {
@@ -37,12 +28,12 @@ void insertAfter(struct Node* prev_node, int new_data)
 	}
 
 	/* 2. allocate new node */
-	struct Node* new_node
-		= (struct Node*)malloc(sizeof(struct Node));
+	struct node* new_node
+		= (struct node*)malloc(sizeof(struct node));
 
 	/* 3. put in the data */
-	new_node->data = new_data;
-
+	//new_node->data = new_data;
+	strcpy(new_node->value, new_data);
 	/* 4. Make next of new node as next of prev_node */
 	new_node->next = prev_node->next;
 
@@ -51,16 +42,16 @@ void insertAfter(struct Node* prev_node, int new_data)
 }
 /* Given a reference (pointer to pointer) to the head
 of a list and an int, appends a new node at the end */
-void append(struct Node** head_ref, int new_data)
+void append(struct node** head_ref, char *new_data)
 {
 	/* 1. allocate node */
-	struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
+	struct node* new_node = (struct node*) malloc(sizeof(struct node));
 
-	struct Node *last = *head_ref; /* used in step 5*/
+	struct node *last = *head_ref; /* used in step 5*/
 
 	/* 2. put in the data */
-	new_node->data = new_data;
-
+	//new_node->data = new_data;
+	strcpy(new_node->value, new_data);
 	/* 3. This new node is going to be the last node, so make next
 		of it as NULL*/
 	new_node->next = NULL;
@@ -83,13 +74,13 @@ void append(struct Node** head_ref, int new_data)
 /* Given a reference (pointer to pointer) to the head of a
    list and a key, deletes the first occurrence of key in
    linked list */
-void deleteNode(struct Node** head_ref, int key)
+void deleteNode(struct node** head_ref, char *key)
 {
     // Store head node
-    struct Node *temp = *head_ref, *prev;
+    struct node *temp = *head_ref, *prev;
  
     // If head node itself holds the key to be deleted
-    if (temp != NULL && temp->data == key) {
+    if (temp != NULL && temp->value == key) {
         *head_ref = temp->next; // Changed head
         free(temp); // free old head
         return;
@@ -97,7 +88,7 @@ void deleteNode(struct Node** head_ref, int key)
  
     // Search for the key to be deleted, keep track of the
     // previous node as we need to change 'prev->next'
-    while (temp != NULL && temp->data != key) {
+    while (temp != NULL && temp->value != key) {
         prev = temp;
         temp = temp->next;
     }
@@ -112,6 +103,14 @@ void deleteNode(struct Node** head_ref, int key)
     free(temp); // Free memory
 }
 
-
+// This function prints contents of linked list starting
+// from the given node
+void printList(struct node* node)
+{
+    while (node != NULL) {
+        printf(" %s ", node->value);
+        node = node->next;
+    }
+}
 
 

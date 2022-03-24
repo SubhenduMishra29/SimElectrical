@@ -20,7 +20,7 @@ int create_bus(char bus_type[],char bus_name[] ){// str1 is the name of the bus
 	strcat(str, str1);
 	strcat(str, bus_name);
 	strcat(str, str3);
-	printf(str);
+	//printf(str);
 	//printf("bus1 = pp.create_bus(net, name=\"HV Busbar\", vn_kv=6.6, type=\"b\")\n");
 	FILE *out=fopen("bus.txt","a+");
 	fputs("bus1 = pp.create_bus(net, name=\"HV Busbar\", vn_kv=6.6, type=\"b\")",out);
@@ -62,7 +62,7 @@ void appendFiles(char source[],char destination[])
     FILE *fp1, *fp2;
  
     // opening files
-    fp1 = fopen(source, "a+");
+    fp1 = fopen(source, "r");
     fp2 = fopen(destination, "a+");
  
     // If file is not found then return.
@@ -81,16 +81,16 @@ void appendFiles(char source[],char destination[])
  
     // writing the contents of
     // source file to destination file.
-    //while (!feof(fp1)) {
-    //    fgets(buf, sizeof(buf), fp1);//read the source file
-    //    //fread(buf, sizeof(buf), 1, fp1);
+    while (!feof(fp1)) {
+        fgets(buf, sizeof(buf), fp1);//read the source file
+       //fread(buf, sizeof(buf), 1, fp1);
 	//	printf("looping ..%s\n",source);
-    //    fprintf(fp2, "%s", buf);// write to destination file
-    //    //fwrite(buf , 1 , sizeof(buf) , fp2 );        
-    //}
-	char ch;
-	while((ch=fgetc(fp1))!=EOF)
-		fputc(ch,fp2);
+        fprintf(fp2, "%s", buf);// write to destination file
+        //fwrite(buf , 1 , sizeof(buf) , fp2 );        
+    }
+//	char ch;
+//	while((ch=fgetc(fp1))!=EOF)
+//		fputc(ch,fp2);
 	
     //rewind(fp2);
  

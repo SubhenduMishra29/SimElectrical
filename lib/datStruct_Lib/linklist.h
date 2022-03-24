@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#define LARGE 200
 
-struct Node {
-	int data;
-	struct Node* next;
+struct node{
+    char value[LARGE+1];
+    struct node *next;
 };
-void printList(struct Node* n);
-void push(struct Node** head_ref, int new_data);
-void insertAfter(struct Node* prev_node, int new_data);
-void append(struct Node** head_ref, int new_data);
-void deleteNode(struct Node** head_ref, int key);
+struct node *add_to_list(struct node *list, char *n);
+void push(struct node** head_ref, char *new_data);
+void append(struct node** head_ref, char *new_data);
+void insertAfter(struct node* prev_node, char *new_data);
+void printList(struct node* node);
+void deleteNode(struct node** head_ref, char *key);

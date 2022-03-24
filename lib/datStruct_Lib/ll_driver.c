@@ -1,22 +1,23 @@
 #include "linklist.h"
 int main()
 {
-	struct Node* head = NULL;
-	struct Node* second = NULL;
-	struct Node* third = NULL;
+	struct node* head = NULL;
+	struct node* second = NULL;
+	struct node* third = NULL;
 
 	// allocate 3 nodes in the heap
-	head = (struct Node*)malloc(sizeof(struct Node));
-	second = (struct Node*)malloc(sizeof(struct Node));
-	third = (struct Node*)malloc(sizeof(struct Node));
-
-	head->data = 1; // assign data in first node
+	head = (struct node*)malloc(sizeof(struct node));
+	second = (struct node*)malloc(sizeof(struct node));
+	third = (struct node*)malloc(sizeof(struct node));
+	printf("Starting of link list\n");
+	strcpy(head->value,"Hellow ");
+	// assign data in first node
 	head->next = second; // Link first node with second
 
-	second->data = 2; // assign data to second node
+	strcpy(second->value,"This is C world\n"); // assign data to second node
 	second->next = third;
 
-	third->data = 3; // assign data to third node
+	strcpy(third->value,"Welcome\n"); // assign data to third node
 	third->next = NULL;
 
 	printList(head);
