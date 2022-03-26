@@ -3,9 +3,8 @@
 void main(){
 	/* Start with the empty list */
 	struct node* head = NULL;
-	create_empty_net(head);
-	printf(" %s \n", head->value);
-	create_bus(head,"-bus1","HV Busbar");
+	create_empty_net(&head);
+	create_bus(&head,"bus1 HV Busbar\n");
 	//create_line();
 	//create_trafo();
 	//create_switch();

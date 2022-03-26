@@ -48,12 +48,9 @@ void append(struct node** head_ref, char *new_data)
 	struct node* new_node = (struct node*) malloc(sizeof(struct node));
 
 	struct node *last = *head_ref; /* used in step 5*/
-	printf("Inside append \n");
-	printf("--%s \n",new_node->value);
 	/* 2. put in the data */
 	//new_node->data = new_data;
-	strcpy(new_node->value, new_data);
-	printf("--%s \n",new_node->value);
+	strcpy(new_node->value, new_data);	
 	/* 3. This new node is going to be the last node, so make next
 		of it as NULL*/
 	new_node->next = NULL;
@@ -108,11 +105,9 @@ void deleteNode(struct node** head_ref, char *key)
 // This function prints contents of linked list starting
 // from the given node
 void printList(struct node* node)
-{
-	printf("inside PrintList:\n");
-	 printf(" %s ", node->value);
+{	
     while (node != NULL) {
-        printf(" %s ", node->value);
+        printf("%s", node->value);
         node = node->next;
     }
 }
