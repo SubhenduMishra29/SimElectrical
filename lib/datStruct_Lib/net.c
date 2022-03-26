@@ -1,13 +1,13 @@
 #include "net.h"
 
-int create_empty_net(struct node *head){
+int create_empty_net(struct node* head){
 	printf(" %s \n", head->value);
 	//printf("import pandapower as pp\n");
 	//printf("net = pp.create_empty_network()\n");
 	append(&head, "import pandapower as pp\n");
-	printf(" %s \n ", head->value);
+	printf(" -%s \n ", &head->value);
 	append(&head, "net = pp.create_empty_network()");
-	printf(" %s \n", head->value);
+	printf(" -%s \n", &head->value);
 	//FILE *out=fopen("empty_net.txt","a+");
 	//fputs("import pandapower as pp\n",out);
 	//fputs("net = pp.create_empty_network()",out);
