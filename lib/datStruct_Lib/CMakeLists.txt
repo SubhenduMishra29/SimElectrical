@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.9)
 project(graph)
 add_library(datSLib SHARED graph.c net.c linklist.c)
-add_executable(net net.c )
+add_executable(net net_driver.c )
 target_link_libraries(net PRIVATE datSLib)
