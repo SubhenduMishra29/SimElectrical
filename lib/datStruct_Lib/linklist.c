@@ -102,6 +102,72 @@ void deleteNode(struct node** head_ref, char *key)
     free(temp); // Free memory
 }
 
+/* Takes two lists sorted in increasing order, and splices
+their nodes together to make one big sorted list which
+is returned. */
+struct node* SortedMerge(struct node* a, struct node* b)
+{
+	/* a dummy first node to hang the result on */
+	struct node dummy;
+
+	/* tail points to the last result node */
+	struct node* tail = &dummy;
+
+	/* so tail->next is the place to add new nodes
+	to the result. */
+	dummy.next = NULL;
+	while (1)
+	{
+		if (a == NULL)
+		{
+			/* if either list runs out, use the
+			other list */
+			tail->next = b;
+			break;
+		}
+		else if (b == NULL)
+		{
+			tail->next = a;
+			break;
+		}
+		if (a->value <= b->value)
+			MoveNode(&(tail->next), &a);
+		else
+			MoveNode(&(tail->next), &b);
+
+		tail = tail->next;
+	}
+	return(dummy.next);
+}
+
+/* UTILITY FUNCTIONS */
+/* MoveNode() function takes the node from the front of the
+source, and move it to the front of the dest.
+It is an error to call this with the source list empty.
+
+Before calling MoveNode():
+source == {1, 2, 3}
+dest == {1, 2, 3}
+
+After calling MoveNode():
+source == {2, 3}
+dest == {1, 1, 2, 3} */
+void MoveNode(struct node** destRef, struct node** sourceRef)
+{
+	/* the front source node */
+	struct node* newNode = *sourceRef;
+	assert(newNode != NULL);
+
+	/* Advance the source pointer */
+	*sourceRef = newNode->next;
+
+	/* Link the old dest off the new node */
+	newNode->next = *destRef;
+
+	/* Move dest to point to the new node */
+	*destRef = newNode;
+}
+
 // This function prints contents of linked list starting
 // from the given node
 void printList(struct node* node)
