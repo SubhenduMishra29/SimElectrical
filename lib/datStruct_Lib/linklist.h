@@ -17,3 +17,5 @@ void deleteNode(struct node** head_ref, char *key);
 /* pull off the front node of the source and put it in dest */
 void MoveNode(struct node** destRef, struct node** sourceRef);
 struct node* SortedMerge(struct node* a, struct node* b);
+void insert(struct node* head1, struct node* head2,int k);
+void mergeList(struct node* head1,struct node* head2);

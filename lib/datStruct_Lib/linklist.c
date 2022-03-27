@@ -170,6 +170,46 @@ void MoveNode(struct node** destRef, struct node** sourceRef)
 
 // This function prints contents of linked list starting
 // from the given node
+// Function to insert whole linked list in
+// to another linked list at position k
+void insert(struct node* head1, struct node* head2,int k)
+{
+    // traverse the first linked list until k-th
+    // point is reached
+    int count = 1;
+    struct node* curr = head1;
+    while (count < k) {
+        curr = curr->next;
+        count++;
+    }
+ 
+    // backup next node of the k-th point
+    struct node* temp = curr->next;
+ 
+    // join second linked list at the kth point
+    curr->next = head2;
+ 
+    // traverse the second linked list till end
+    while (head2->next != NULL)
+        head2 = head2->next;
+ 
+    // join the second part of the linked list
+    // to the end
+    head2->next = temp;
+}
+void mergeList(struct node* a,struct node* b){
+   if( a != NULL && b!= NULL )
+    {
+        if (a->next == NULL)
+            a->next = b;
+        else
+            mergeList(a->next,b);
+    }
+    else
+    {
+        printf("Either a or b is NULL\n");
+    }
+}
 void printList(struct node* node)
 {	
     while (node != NULL) {

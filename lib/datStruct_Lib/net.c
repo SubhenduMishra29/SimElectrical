@@ -8,19 +8,10 @@ int create_empty_net(struct node** head){
 }
 int create_bus(struct node** head ,char str[] ){// str1 is the name of the bus
 	append(head, str);
-	//printf(str);
-	//printf("bus1 = pp.create_bus(net, name=\"HV Busbar\", vn_kv=6.6, type=\"b\")\n");
-	//FILE *out=fopen("bus.txt","a+");
-	//fputs("bus1 = pp.create_bus(net, name=\"HV Busbar\", vn_kv=6.6, type=\"b\")",out);
-	//fclose(out);
 	return 0;
 }
 int create_line(struct node** head ,char str[]){
 	append(head, str);
-	//printf("line1 = pp.create_line(net, bus1, bus2, length_km=0.5, std_type=\"NA2XS2Y 1x240 RM/25 12/20 kV\", 		name=\"Line 1\")\n");
-	//FILE *out=fopen("line.txt","a+");
-	//fputs("line1 = pp.create_line(net, bus1, bus2, length_km=0.5, std_type=\"NA2XS2Y 1x240 RM/25 12/20 kV\",name=\"Line 1\")",out);
-	//fclose(out);
 	return 0;
 }
 int create_trafo(struct node** head ,char str[]){
