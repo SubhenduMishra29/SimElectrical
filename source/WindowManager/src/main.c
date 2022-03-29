@@ -3,6 +3,37 @@
 //pointer to label 1 & 2
 GtkWidget *g_label1;
 GtkWidget *g_label2;
+static void first_dialog(void)
+{
+    // This creates (but does not yet display) a message dialog with
+    // the given text as the title.
+    GtkWidget* hello = gtk_message_dialog_new(
+        NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
+        "Hi, I'm a message dialog!");
+
+    // The (optional) secondary text shows up in the "body" of the
+    // dialog. Note that printf-style formatting is available.
+    gtk_message_dialog_format_secondary_text(
+        GTK_MESSAGE_DIALOG(hello),
+        "This is secondary text with printf-style formatting: %d",
+        99);
+
+    // This displays our message dialog as a modal dialog, waiting for
+    // the user to click a button before moving on. The return value
+    // comes from the :response signal emitted by the dialog. By
+    // default, the dialog only has an OK button, so we'll get a
+    // GTK_RESPONSE_OK if the user clicked the button. But if the user
+    // destroys the window, we'll get a GTK_RESPONSE_DELETE_EVENT.
+    int response = gtk_dialog_run(GTK_DIALOG(hello));
+
+    printf("response was %d (OK=%d, DELETE_EVENT=%d)\n",
+           response, GTK_RESPONSE_OK, GTK_RESPONSE_DELETE_EVENT);
+
+    // If we don't destroy the dialog here, it will still be displayed
+    // (in back) when the second dialog below is run.
+    gtk_widget_destroy(hello);
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -16,11 +47,7 @@ int main(int argc, char *argv[])
 
     window = GTK_WIDGET(gtk_builder_get_object(builder, "Electrical"));
     gtk_builder_connect_signals(builder, NULL);
-    
-    //connect pointer to label 1 & 2
-    g_label1 = GTK_WIDGET(gtk_builder_get_object(builder,"label1"));
-    g_label2 = GTK_WIDGET(gtk_builder_get_object(builder,"label2"));
-
+        
     g_object_unref(builder);
 
     gtk_widget_show(window);                
@@ -38,16 +65,7 @@ void on_window_main_destroy()
 //call function when btn1 is clicked
 int count=0;
 // G_MODULE_EXPORT is added for window platform
-G_MODULE_EXPORT void on_Btn1_clicked(){
-	char strcnt[255]={"\0"};
-	
-	//set label1 to hello world
-	gtk_label_set_text(GTK_LABEL(g_label1),"Hello World");
-	count++;
-	sprintf(strcnt,"%d",count);
-	//set label2 to strcnt
-	gtk_label_set_text(GTK_LABEL(g_label2),strcnt);
-}
+
 G_MODULE_EXPORT void on_Button_Design_clicked() {
 	
 }
@@ -61,7 +79,7 @@ G_MODULE_EXPORT void on_Button_Sl_clicked(){
 	
 }
 G_MODULE_EXPORT void on_Button_Mgr_clicked(){
-		
+		first_dialog();
 }
 G_MODULE_EXPORT void on_Button_Relay_Coord_clicked(){
 	
