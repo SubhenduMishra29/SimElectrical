@@ -22,7 +22,7 @@ ADD_EXECUTABLE(template src/main.c)
 TARGET_LINK_LIBRARIES(template ${GTK3_LIBRARIES})
 
 # copy glade data to build
-add_custom_target(glade ALL
-	COMMAND cmake -E copy_directory ${CMAKE_SOURCE_DIR}/glade ${CMAKE_BINARY_DIR}/glade
-	DEPENDS ${MY_TARGET}
-)
+#add_custom_target(glade ALL
+#	COMMAND cmake -E copy_directory ${CMAKE_SOURCE_DIR}/glade ${CMAKE_BINARY_DIR}/glade
+#	DEPENDS ${MY_TARGET}
+#)

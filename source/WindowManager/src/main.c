@@ -1,5 +1,4 @@
 #include <gtk/gtk.h>
-//https://prognotes.net/2016/03/gtk-3-c-code-hello-world-tutorial-using-glade-3/
 
 //pointer to label 1 & 2
 GtkWidget *g_label1;
@@ -13,9 +12,9 @@ int main(int argc, char *argv[])
     gtk_init(&argc, &argv);
 
     builder = gtk_builder_new();
-    gtk_builder_add_from_file (builder, "glade/window_main.glade", NULL);
+    gtk_builder_add_from_file (builder, "glade/Electrical.glade", NULL);
 
-    window = GTK_WIDGET(gtk_builder_get_object(builder, "window_main"));
+    window = GTK_WIDGET(gtk_builder_get_object(builder, "Electrical"));
     gtk_builder_connect_signals(builder, NULL);
     
     //connect pointer to label 1 & 2
@@ -38,7 +37,8 @@ void on_window_main_destroy()
 
 //call function when btn1 is clicked
 int count=0;
-void on_Btn1_clicked(){
+// G_MODULE_EXPORT is added for window platform
+G_MODULE_EXPORT void on_Btn1_clicked(){
 	char strcnt[255]={"\0"};
 	
 	//set label1 to hello world
@@ -48,3 +48,44 @@ void on_Btn1_clicked(){
 	//set label2 to strcnt
 	gtk_label_set_text(GTK_LABEL(g_label2),strcnt);
 }
+G_MODULE_EXPORT void on_Button_Design_clicked() {
+	
+}
+G_MODULE_EXPORT void on_Button_Logic_clicked(){
+	
+}
+G_MODULE_EXPORT void on_Button_Relay_clicked(){
+	
+}
+G_MODULE_EXPORT void on_Button_Sl_clicked(){
+	
+}
+G_MODULE_EXPORT void on_Button_Mgr_clicked(){
+		
+}
+G_MODULE_EXPORT void on_Button_Relay_Coord_clicked(){
+	
+}
+G_MODULE_EXPORT void on_Gen_Toolbar_save_clicked(){
+	
+}
+G_MODULE_EXPORT void on_Gen_Toolbar_new_clicked(){
+	
+}
+G_MODULE_EXPORT void on_Gen_Toolbar_redo_clicked(){
+	
+}
+G_MODULE_EXPORT void on_Gen_Toolbar_undo_clicked(){
+	
+}
+G_MODULE_EXPORT void on_Gen_Toolbar_execute_clicked(){
+	
+}
+G_MODULE_EXPORT void on_Gen_Toolbar_File_clicked(){
+	
+}
+
+G_MODULE_EXPORT void on_Gen_Toolbar_cut_clicked(){
+	
+}
+
