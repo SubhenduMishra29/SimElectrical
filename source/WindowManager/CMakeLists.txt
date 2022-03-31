@@ -16,7 +16,7 @@ LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
 ADD_DEFINITIONS(${GTK3_CFLAGS_OTHER})
 
 # Add an executable compiled from template.c
-ADD_EXECUTABLE(template src/main.c)
+ADD_EXECUTABLE(template src/main.c src/file_util.c)
 
 # Link the target to the GTK+ libraries
 TARGET_LINK_LIBRARIES(template ${GTK3_LIBRARIES})
