@@ -49,8 +49,8 @@ int main(int argc, char *argv[])
     gtk_builder_connect_signals(builder, NULL);
         
     g_object_unref(builder);
-
-    gtk_widget_show(window);                
+	g_signal_connect(G_OBJECT(window), "destroy",G_CALLBACK(gtk_main_quit), NULL);
+	gtk_widget_show(window);                
     gtk_main();
 
     return 0;
@@ -106,4 +106,13 @@ G_MODULE_EXPORT void on_Gen_Toolbar_File_clicked(){
 G_MODULE_EXPORT void on_Gen_Toolbar_cut_clicked(){
 	
 }
-
+G_MODULE_EXPORT gboolean on_menuItem_file_new_button_press_event (){
+	
+	 
+}
+G_MODULE_EXPORT void on_menuItem_help_about_select (){
+	 
+} 
+G_MODULE_EXPORT gboolean on_menuItem_file_quit_button_press_event(){
+	 gtk_main_quit();
+ }
