@@ -14,7 +14,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <child>
-              <object class="GtkMenuItem">
+              <object class="GtkMenuItem" id="menuItem_file_open">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">_File</property>
@@ -24,16 +24,17 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="menuItem_file_new">
                         <property name="label">gtk-new</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
                         <property name="use-stock">True</property>
+                        <signal name="button-press-event" handler="on_menuItem_file_new_button_press_event" swapped="no"/>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="menuItem_file_ope">
                         <property name="label">gtk-open</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -42,7 +43,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="menuItem_file_save">
                         <property name="label">gtk-save</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -51,7 +52,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="menuItem_file_save_as">
                         <property name="label">gtk-save-as</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
@@ -66,12 +67,13 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="menuItem_file_quit">
                         <property name="label">gtk-quit</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
                         <property name="use-stock">True</property>
+                        <signal name="button-press-event" handler="on_menuItem_file_quit_button_press_event" swapped="no"/>
                       </object>
                     </child>
                   </object>
@@ -615,7 +617,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkMenuItem">
+              <object class="GtkMenuItem" id="menuItem_help">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">_Help</property>
@@ -625,12 +627,13 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem">
+                      <object class="GtkImageMenuItem" id="menuItem_help_about">
                         <property name="label">gtk-about</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
                         <property name="use-stock">True</property>
+                        <signal name="select" handler="on_menuItem_help_about_select" swapped="no"/>
                       </object>
                     </child>
                   </object>
