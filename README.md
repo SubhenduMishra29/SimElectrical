@@ -26,3 +26,5 @@
 - Battery modeling and simulation
 - Arc flash hazard assessment
 - DC Arc Flash Hazard Assessment
+# Main Moto
+The software will help in design of electrical system for various needs like Steel Plant, Grid, Traction and Individual plant simulation even the simulation design can be realised into paper printing so that it could be executed on field error free.
