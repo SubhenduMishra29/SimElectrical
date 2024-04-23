@@ -1,52 +1,32 @@
 %{
 #include <iostream>
-#include <unordered_set>
-#include <string>
 #include <vector>
 using namespace std;
-unordered_set<string> inputSignals;
-unordered_set<string> outputSignals;
-unordered_set<string> clockSignals;
-string currentModelName;
+string currentOutputSignal;
 
-void addInput(const string& input) {
-    inputSignals.insert(input);
-}
-
-void addOutput(const string& output) {
-    outputSignals.insert(output);
-}
-
-void addClock(const string& clock) {
-    clockSignals.insert(clock);
-}
-
-void printModelDeclaration() {
-    cout << "Model Name: " << currentModelName << endl;
-    cout << "Inputs: ";
+void printLogicGateDeclaration(const string& outputSignal, const vector<string>& inputSignals, const vector<string>& cover) {
+    cout << "Logic Gate Declaration:" << endl;
+    cout << "Output Signal: " << outputSignal << endl;
+    cout << "Input Signals: ";
     for (const string& input : inputSignals) {
         cout << input << " ";
     }
     cout << endl;
-    cout << "Outputs: ";
-    for (const string& output : outputSignals) {
-        cout << output << " ";
+    cout << "Single Output Cover:" << endl;
+    for (const string& row : cover) {
+        cout << row << endl;
     }
-    cout << endl;
-    cout << "Clocks: ";
-    for (const string& clock : clockSignals) {
-        cout << clock << " ";
-    }
-    cout << endl;
 }
 
 %}
 
 %union {
     string str;
+    vector<string> str_vector;
 }
 
 %token MODEL INPUTS OUTPUTS CLOCK END IDENTIFIER NEWLINE
+%token NAMES
 
 %%
 
@@ -55,27 +35,30 @@ blif_file : model_declaration_list { cout << "BLIF file parsed successfully!" <<
 model_declaration_list : /* empty */
                         | model_declaration_list model_declaration
 
-model_declaration : MODEL IDENTIFIER model_body END { printModelDeclaration(); }
+model_declaration : MODEL IDENTIFIER model_body END
 
 model_body : input_list output_list clock_list command_list
 
 input_list : /* empty */
-           | input_list INPUTS identifier_list NEWLINE { for (const string& input : $3) addInput(input); }
+           | input_list INPUTS identifier_list NEWLINE
 
 output_list : /* empty */
-            | output_list OUTPUTS identifier_list NEWLINE { for (const string& output : $3) addOutput(output); }
+            | output_list OUTPUTS identifier_list NEWLINE
 
 clock_list : /* empty */
-           | clock_list CLOCK identifier_list NEWLINE { for (const string& clock : $3) addClock(clock); }
+           | clock_list CLOCK identifier_list NEWLINE
 
 command_list : /* empty */
              | command_list command NEWLINE
 
 identifier_list : /* empty */
-                 | identifier_list IDENTIFIER { $$ = $1; }
+                 | identifier_list IDENTIFIER
                  | IDENTIFIER { $$ = { $1 }; }
 
-command : IDENTIFIER { cout << "Command: " << $1 << endl; }
+command : NAMES IDENTIFIER identifier_list cover { printLogicGateDeclaration(currentOutputSignal, $3, $4); }
+
+cover : /* empty */
+      | cover IDENTIFIER { $$ = { $1 }; }
 
 %%
 
