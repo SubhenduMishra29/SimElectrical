@@ -1,13 +1,20 @@
 #include <iostream>
-#include <cstdlib> // For exit function
-extern "C" {
-    int yyparse();
-}
+#include "blif_parser.tab.h"
+
+extern FILE* yyin;
+extern int yyparse();
 
 int main() {
-    std::cout << "Welcome to the custom console!" << std::endl;
-    std::cout << "Enter commands or type 'exit' to quit:" << std::endl;
+    yyin = fopen("input.blif", "r");
+    if (!yyin) {
+        std::cerr << "Error: Failed to open input file." << std::endl;
+        return 1;
+    }
+
     yyparse();
+
+    fclose(yyin);
+
     return 0;
 }
 
