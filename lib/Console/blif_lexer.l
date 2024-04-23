@@ -1,13 +1,11 @@
 %{
-#include "blif_parser.tab.h"
 #include <iostream>
-#include <vector>
+#include <string>
+#include "blif.tab.h"
 using namespace std;
-extern int yylineno;
-extern char* yytext;
+extern int yylval;
+extern FILE* yyin;
 %}
-
-%option noyywrap
 
 %%
 
@@ -25,13 +23,12 @@ extern char* yytext;
 \.mlatch                { return MLATCH; }
 \.subckt                { return SUBCKT; }
 \.search                { return SEARCH; }
-[a-zA-Z_][a-zA-Z0-9_]*  { yylval.str = strdup(yytext); return IDENTIFIER; }
-'='                     { return '='; }
-.                       { cerr << "Lexer Error: Unrecognized token at line " << yylineno << endl; }
+[0-9]+                  { yylval = atoi(yytext); return NUM_LITERAL; }
+[a-zA-Z_][a-zA-Z0-9_]* { yylval = strdup(yytext); return IDENTIFIER; }
+\".*\"                  { yylval = strdup(yytext); return STR_LITERAL; }
 
 %%
 
 int yywrap() {
     return 1;
 }
-
