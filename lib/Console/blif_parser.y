@@ -18,6 +18,20 @@ void printLogicGateDeclaration(const string& outputSignal, const vector<string>&
     }
 }
 
+void printExternalDon'tCares(const string& outputSignal, const vector<string>& inputSignals, const vector<string>& cover) {
+    cout << "External Don't Cares Declaration:" << endl;
+    cout << "Output Signal: " << outputSignal << endl;
+    cout << "Input Signals: ";
+    for (const string& input : inputSignals) {
+        cout << input << " ";
+    }
+    cout << endl;
+    cout << "Single Output Cover:" << endl;
+    for (const string& row : cover) {
+        cout << row << endl;
+    }
+}
+
 %}
 
 %union {
@@ -26,7 +40,7 @@ void printLogicGateDeclaration(const string& outputSignal, const vector<string>&
 }
 
 %token MODEL INPUTS OUTPUTS CLOCK END IDENTIFIER NEWLINE
-%token NAMES
+%token NAMES EXDC
 
 %%
 
@@ -56,6 +70,7 @@ identifier_list : /* empty */
                  | IDENTIFIER { $$ = { $1 }; }
 
 command : NAMES IDENTIFIER identifier_list cover { printLogicGateDeclaration(currentOutputSignal, $3, $4); }
+        | EXDC NAMES IDENTIFIER identifier_list cover { printExternalDon'tCares($3, $4, $5); }
 
 cover : /* empty */
       | cover IDENTIFIER { $$ = { $1 }; }
