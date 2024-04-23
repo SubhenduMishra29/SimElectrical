@@ -1,28 +1,29 @@
 #add_subdirectory()
 cmake_minimum_required(VERSION 3.9)
-project(BerkeleyLogicConsole)
+project(BLIFParser)
 
 # Find Flex and Bison
 find_package(FLEX REQUIRED)
 find_package(BISON REQUIRED)
 
 # Generate Flex and Bison files
-flex_target(BerkeleyLexer berkeley_lexer.l ${CMAKE_CURRENT_BINARY_DIR}/berkeley_lexer.cpp)
-bison_target(BerkeleyParser berkeley_parser.y ${CMAKE_CURRENT_BINARY_DIR}/berkeley_parser.cpp)
+flex_target(BLIFLexer blif_lexer.l ${CMAKE_CURRENT_BINARY_DIR}/blif_lexer.cpp)
+bison_target(BLIFParser blif_parser.y ${CMAKE_CURRENT_BINARY_DIR}/blif_parser.cpp)
 
 # Add Flex and Bison dependency
-add_flex_bison_dependency(BerkeleyLexer BerkeleyParser)
+add_flex_bison_dependency(BLIFLexer BLIFParser)
 
 # Add executable target
-add_executable(BerkeleyLogicConsole 
-    ${FLEX_BerkeleyLexer_OUTPUTS}
-    ${BISON_BerkeleyParser_OUTPUTS}
+add_executable(BLIFParser 
+    ${FLEX_BLIFLexer_OUTPUTS}
+    ${BISON_BLIFParser_OUTPUTS}
     main.cpp
 )
 
 # Include directory for Flex and Bison generated files
-target_include_directories(BerkeleyLogicConsole PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_include_directories(BLIFParser PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
 # Set C++ standard
-set_property(TARGET BerkeleyLogicConsole PROPERTY CXX_STANDARD 11)
+set_property(TARGET BLIFParser PROPERTY CXX_STANDARD 11)
+
 
