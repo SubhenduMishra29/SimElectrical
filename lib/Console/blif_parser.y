@@ -4,66 +4,118 @@
 #include <string.h>
 
 extern int yylex();
-extern FILE* yyin;
-extern char* yytext;
-extern int yylval;
+extern FILE *yyin;
 
-void yyerror(const char* s);
+void yyerror(const char *msg) {
+    fprintf(stderr, "Error: %s\n", msg);
+    exit(1);
+}
 
 %}
 
-%token AREA DELAY WIRE_LOAD_SLOPE WIRE INPUT_ARRIVAL DEFAULT_INPUT_ARRIVAL OUTPUT_REQUIRED DEFAULT_OUTPUT_REQUIRED
-%token INPUT_DRIVE DEFAULT_INPUT_DRIVE MAX_INPUT_LOAD DEFAULT_MAX_INPUT_LOAD OUTPUT_LOAD DEFAULT_OUTPUT_LOAD
-%token NUMBER NAME
-
-%%
-
-input: 
-    | input delay_constraint
-    | input wire_constraint
-    | input input_arrival_constraint
-    | input output_required_constraint
-    | input input_drive_constraint
-    | input max_input_load_constraint
-    | input output_load_constraint
-    ;
-
-delay_constraint: DELAY NAME NAME NUMBER NUMBER NUMBER NUMBER NUMBER { /* action */ }
-    ;
-
-wire_constraint: WIRE_LOAD_SLOPE NUMBER { /* action */ }
-    | WIRE NUMBER { /* action */ }
-    ;
-
-input_arrival_constraint: INPUT_ARRIVAL NAME NUMBER NUMBER { /* action */ }
-    | DEFAULT_INPUT_ARRIVAL NUMBER NUMBER { /* action */ }
-    ;
-
-output_required_constraint: OUTPUT_REQUIRED NAME NUMBER NUMBER { /* action */ }
-    | DEFAULT_OUTPUT_REQUIRED NUMBER NUMBER { /* action */ }
-    ;
-
-input_drive_constraint: INPUT_DRIVE NAME NUMBER NUMBER { /* action */ }
-    | DEFAULT_INPUT_DRIVE NUMBER NUMBER { /* action */ }
-    ;
-
-max_input_load_constraint: MAX_INPUT_LOAD NUMBER { /* action */ }
-    | DEFAULT_MAX_INPUT_LOAD NUMBER { /* action */ }
-    ;
-
-output_load_constraint: OUTPUT_LOAD NAME NUMBER { /* action */ }
-    | DEFAULT_OUTPUT_LOAD NUMBER { /* action */ }
-    ;
-
-%%
-
-void yyerror(const char* s) {
-    fprintf(stderr, "Parser error: %s\n", s);
+%union {
+    double num;
+    char *str;
 }
 
-int main(int argc, char* argv[]) {
-    yyin = fopen(argv[1], "r");
+%token <num> NUMBER
+%token <str> NAME
+%token EXIT NEWLINE MODEL INPUTS OUTPUTS LATCH START_KISS I O P S R END_KISS LATCH_ORDER CODE NAMES END
+
+%%
+
+blif_file: model_declaration END
+          ;
+
+model_declaration: optional_model inputs_declaration outputs_declaration latch_declaration start_kiss_declaration fsm_declaration latch_order_declaration code_declaration names_declaration END_KISS
+                 ;
+
+optional_model: /* empty */
+              | MODEL NAME
+              ;
+
+inputs_declaration: /* empty */
+                   | INPUTS input_list
+                   ;
+
+outputs_declaration: /* empty */
+                    | OUTPUTS output_list
+                    ;
+
+latch_declaration: /* empty */
+                  | LATCH latch_list
+                  ;
+
+start_kiss_declaration: /* empty */
+                       | START_KISS I NUMBER O NUMBER P NUMBER S NUMBER R NAME NUMBER
+                       ;
+
+fsm_declaration: /* empty */
+                 | fsm
+                 ;
+
+latch_order_declaration: /* empty */
+                         | LATCH_ORDER latch_list
+                         ;
+
+code_declaration: /* empty */
+                  | CODE code_list
+                  ;
+
+names_declaration: /* empty */
+                   | NAMES names_list
+                   ;
+
+fsm: fsm_line fsm_lines
+   ;
+
+fsm_lines: /* empty */
+         | fsm_line fsm_lines
+         ;
+
+fsm_line: NAME NAME NAME NAME
+        ;
+
+input_list: NAME
+          | input_list NAME
+          ;
+
+output_list: NAME
+           | output_list NAME
+           ;
+
+latch_list: /* empty */
+          | LATCH NAME NAME NUMBER
+          | latch_list LATCH NAME NAME NUMBER
+          ;
+
+code_list: /* empty */
+         | CODE NAME NUMBER
+         | code_list CODE NAME NUMBER
+         ;
+
+names_list: /* empty */
+          | NAMES NAME NUMBER
+          | names_list NAMES NAME NUMBER
+          ;
+
+%%
+
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s <input_file>\n", argv[0]);
+        return 1;
+    }
+
+    FILE *input_file = fopen(argv[1], "r");
+    if (!input_file) {
+        perror("Error opening input file");
+        return 1;
+    }
+
+    yyin = input_file;
     yyparse();
-    fclose(yyin);
+    fclose(input_file);
+
     return 0;
 }
