@@ -4,6 +4,20 @@
 
 %%
 
+"exit"          { return EXIT; }
+[\t ]+                  /* skip whitespace */
+\n                      { return NEWLINE; }
+\.model                 { return MODEL; }
+\.inputs                { return INPUTS; }
+\.outputs               { return OUTPUTS; }
+\.names                 { return NAMES; }
+\.end                   { return END; }
+\.exdc                  { return EXDC; }
+\.latch                 { return LATCH; }
+\.gate                  { return LIBGATE; }
+\.mlatch                { return MLATCH; }
+\.subckt                { return SUBCKT; }
+\.search                { return SEARCH; }
 \.area             { return AREA; }
 \.delay            { return DELAY; }
 \.wire_load_slope { return WIRE_LOAD_SLOPE; }
