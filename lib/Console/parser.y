@@ -1,12 +1,13 @@
 %{
 #include <iostream>
+#include <cstdlib> // For exit function
 %}
 
-%token IDENTIFIER
-%token INTEGER
+%token EXIT
 
 %%
-command : IDENTIFIER INTEGER { std::cout << "Command: " << $1 << ", Value: " << $2 << std::endl; }
+command : EXIT { std::cout << "Exiting console..." << std::endl; exit(EXIT_SUCCESS); }
+        | IDENTIFIER INTEGER { std::cout << "Command: " << $1 << ", Value: " << $2 << std::endl; }
         | IDENTIFIER { std::cout << "Command: " << $1 << std::endl; }
         ;
 %%
@@ -15,3 +16,4 @@ int main() {
     yyparse();
     return 0;
 }
+
