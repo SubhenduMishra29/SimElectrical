@@ -20,8 +20,13 @@ extern char* yytext;
 \.end                   { return END; }
 \.names                 { return NAMES; }
 \.exdc                  { return EXDC; }
+\.latch                 { return LATCH; }
+\.gate                  { return LIBGATE; }
+\.mlatch                { return MLATCH; }
+\.subckt                { return SUBCKT; }
+\.search                { return SEARCH; }
 [a-zA-Z_][a-zA-Z0-9_]*  { yylval.str = strdup(yytext); return IDENTIFIER; }
-\.                      { return yytext[0]; }
+'='                     { return '='; }
 .                       { cerr << "Lexer Error: Unrecognized token at line " << yylineno << endl; }
 
 %%
