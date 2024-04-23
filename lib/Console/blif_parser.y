@@ -1,160 +1,69 @@
 %{
-#include <iostream>
-#include <string>
-#include <vector>
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-void yyerror(const char* s);
 extern int yylex();
 extern FILE* yyin;
+extern char* yytext;
+extern int yylval;
 
-// Define structures to store FSM description and clock constraints
-struct FSMDescription {
-    int numInputs;
-    int numOutputs;
-    vector<vector<string>> transitions;
-};
+void yyerror(const char* s);
 
-struct ClockConstraint {
-    double cycleTime;
-    vector<pair<double, vector<string>>> events;
-};
-
-// Global variables to store FSM description and clock constraints
-FSMDescription fsmDescription;
-ClockConstraint clockConstraint;
-
-// Function to print FSM description
-void printFSMDescription() {
-    cout << "FSM Description:\n";
-    cout << "Number of Inputs: " << fsmDescription.numInputs << endl;
-    cout << "Number of Outputs: " << fsmDescription.numOutputs << endl;
-    cout << "Transitions:\n";
-    for (const auto& transition : fsmDescription.transitions) {
-        for (const auto& elem : transition) {
-            cout << elem << " ";
-        }
-        cout << endl;
-    }
-    cout << endl;
-}
-
-// Function to print clock constraints
-void printClockConstraint() {
-    cout << "Clock Constraint:\n";
-    cout << "Cycle Time: " << clockConstraint.cycleTime << endl;
-    cout << "Events:\n";
-    for (const auto& event : clockConstraint.events) {
-        cout << "Event Percent: " << event.first << endl;
-        cout << "Clocks:";
-        for (const auto& clock : event.second) {
-            cout << " " << clock;
-        }
-        cout << endl;
-    }
-    cout << endl;
-}
 %}
 
-%token MODEL START_KISS END_KISS INPUTS OUTPUTS CLOCK END NAMES EXDC LATCH LIBGATE MLATCH SUBCKT SEARCH IDENTIFIER '=' NEWLINE
-%token <str> STR_LITERAL
-%token <num> NUM_LITERAL
+%token AREA DELAY WIRE_LOAD_SLOPE WIRE INPUT_ARRIVAL DEFAULT_INPUT_ARRIVAL OUTPUT_REQUIRED DEFAULT_OUTPUT_REQUIRED
+%token INPUT_DRIVE DEFAULT_INPUT_DRIVE MAX_INPUT_LOAD DEFAULT_MAX_INPUT_LOAD OUTPUT_LOAD DEFAULT_OUTPUT_LOAD
+%token NUMBER NAME
 
 %%
 
-program: model_desc fsm_desc clock_desc
-       ;
-
-model_desc: MODEL STR_LITERAL inputs outputs latches gates
-          | MODEL STR_LITERAL inputs outputs latches gates fsm_desc
-          | MODEL STR_LITERAL inputs outputs latches gates clock_desc
-          | MODEL STR_LITERAL inputs outputs latches gates fsm_desc clock_desc
-          ;
-
-inputs: INPUTS id_list NEWLINE
-      ;
-
-outputs: OUTPUTS id_list NEWLINE
-       ;
-
-id_list: IDENTIFIER
-       | IDENTIFIER id_list
-       ;
-
-latches: /* empty */
-       | latches latched
-       ;
-
-latched: LATCH IDENTIFIER IDENTIFIER ['=' IDENTIFIER] ['[' IDENTIFIER ']'] ['[' IDENTIFIER ']'] NEWLINE
-        ;
-
-gates: /* empty */
-     | gates gate
-     ;
-
-gate: LIBGATE IDENTIFIER formal_actual_list NEWLINE
-    | MLATCH IDENTIFIER formal_actual_list IDENTIFIER ['=' IDENTIFIER] NEWLINE
+input: 
+    | input delay_constraint
+    | input wire_constraint
+    | input input_arrival_constraint
+    | input output_required_constraint
+    | input input_drive_constraint
+    | input max_input_load_constraint
+    | input output_load_constraint
     ;
 
-formal_actual_list: /* empty */
-                  | formal_actual_list IDENTIFIER '=' IDENTIFIER
-                  ;
+delay_constraint: DELAY NAME NAME NUMBER NUMBER NUMBER NUMBER NUMBER { /* action */ }
+    ;
 
-fsm_desc: START_KISS '.i' NUM_LITERAL '.o' NUM_LITERAL fsm_desc_body END_KISS
-        {
-            fsmDescription.numInputs = $3;
-            fsmDescription.numOutputs = $5;
-        }
-        ;
+wire_constraint: WIRE_LOAD_SLOPE NUMBER { /* action */ }
+    | WIRE NUMBER { /* action */ }
+    ;
 
-fsm_desc_body: /* empty */
-             | fsm_desc_body fsm_desc_line
-             ;
+input_arrival_constraint: INPUT_ARRIVAL NAME NUMBER NUMBER { /* action */ }
+    | DEFAULT_INPUT_ARRIVAL NUMBER NUMBER { /* action */ }
+    ;
 
-fsm_desc_line: NUM_LITERAL IDENTIFIER IDENTIFIER IDENTIFIER NEWLINE
-             {
-                 fsmDescription.transitions.push_back({to_string($1), $2, $3, $4});
-             }
-             ;
+output_required_constraint: OUTPUT_REQUIRED NAME NUMBER NUMBER { /* action */ }
+    | DEFAULT_OUTPUT_REQUIRED NUMBER NUMBER { /* action */ }
+    ;
 
-clock_desc: /* empty */
-          | '.cycle' NUM_LITERAL NEWLINE
-            {
-                clockConstraint.cycleTime = $2;
-            }
-          | clock_desc clock_event
-          ;
+input_drive_constraint: INPUT_DRIVE NAME NUMBER NUMBER { /* action */ }
+    | DEFAULT_INPUT_DRIVE NUMBER NUMBER { /* action */ }
+    ;
 
-clock_event: '.clock_event' NUM_LITERAL event_list NEWLINE
-            {
-                clockConstraint.events.push_back({$2, $3});
-            }
-           ;
+max_input_load_constraint: MAX_INPUT_LOAD NUMBER { /* action */ }
+    | DEFAULT_MAX_INPUT_LOAD NUMBER { /* action */ }
+    ;
 
-event_list: IDENTIFIER
-          | IDENTIFIER event_list
-          ;
+output_load_constraint: OUTPUT_LOAD NAME NUMBER { /* action */ }
+    | DEFAULT_OUTPUT_LOAD NUMBER { /* action */ }
+    ;
 
 %%
 
 void yyerror(const char* s) {
-    cerr << "Parser Error: " << s << " at line " << yylineno << endl;
+    fprintf(stderr, "Parser error: %s\n", s);
 }
 
-int main() {
-    yyin = fopen("input.blif", "r");
-    if (!yyin) {
-        cerr << "Error: Failed to open input file." << endl;
-        return 1;
-    }
-
+int main(int argc, char* argv[]) {
+    yyin = fopen(argv[1], "r");
     yyparse();
-
     fclose(yyin);
-
-    // Print FSM description and clock constraints
-    printFSMDescription();
-    printClockConstraint();
-
     return 0;
 }
