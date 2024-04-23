@@ -32,6 +32,42 @@ void printExternalDon'tCares(const string& outputSignal, const vector<string>& i
     }
 }
 
+void printLatch(const string& inputSignal, const string& outputSignal, const string& type, const string& control, const string& initVal) {
+    cout << "Latch Declaration:" << endl;
+    cout << "Input Signal: " << inputSignal << endl;
+    cout << "Output Signal: " << outputSignal << endl;
+    cout << "Type: " << type << endl;
+    cout << "Control: " << control << endl;
+    cout << "Init Val: " << initVal << endl;
+}
+
+void printLibraryGate(const string& name, const vector<string>& formalActualList, const string& control, const string& initVal) {
+    cout << "Library Gate Declaration:" << endl;
+    cout << "Name: " << name << endl;
+    cout << "Formal Actual List: ";
+    for (const string& mapping : formalActualList) {
+        cout << mapping << " ";
+    }
+    cout << endl;
+    cout << "Control: " << control << endl;
+    cout << "Init Val: " << initVal << endl;
+}
+
+void printModelReference(const string& modelName, const vector<string>& formalActualList) {
+    cout << "Model Reference:" << endl;
+    cout << "Model Name: " << modelName << endl;
+    cout << "Formal Actual List: ";
+    for (const string& mapping : formalActualList) {
+        cout << mapping << " ";
+    }
+    cout << endl;
+}
+
+void printSubfileReference(const string& fileName) {
+    cout << "Subfile Reference:" << endl;
+    cout << "File Name: " << fileName << endl;
+}
+
 %}
 
 %union {
@@ -40,7 +76,7 @@ void printExternalDon'tCares(const string& outputSignal, const vector<string>& i
 }
 
 %token MODEL INPUTS OUTPUTS CLOCK END IDENTIFIER NEWLINE
-%token NAMES EXDC
+%token NAMES EXDC LATCH LIBGATE MLATCH SUBCKT SEARCH
 
 %%
 
@@ -71,9 +107,17 @@ identifier_list : /* empty */
 
 command : NAMES IDENTIFIER identifier_list cover { printLogicGateDeclaration(currentOutputSignal, $3, $4); }
         | EXDC NAMES IDENTIFIER identifier_list cover { printExternalDon'tCares($3, $4, $5); }
+        | LATCH IDENTIFIER IDENTIFIER IDENTIFIER IDENTIFIER { printLatch($3, $4, $5, $6, $7); }
+        | LIBGATE IDENTIFIER formal_actual_list IDENTIFIER IDENTIFIER { printLibraryGate($2, $3, $4, $5); }
+        | MLATCH IDENTIFIER formal_actual_list IDENTIFIER IDENTIFIER { printLibraryGate($2, $3, $4, $5); }
+        | SUBCKT IDENTIFIER formal_actual_list { printModelReference($2, $3); }
+        | SEARCH IDENTIFIER { printSubfileReference($2); }
 
 cover : /* empty */
       | cover IDENTIFIER { $$ = { $1 }; }
+
+formal_actual_list : /* empty */
+                    | formal_actual_list IDENTIFIER '=' IDENTIFIER { $$ = { $1, $3 }; }
 
 %%
 
